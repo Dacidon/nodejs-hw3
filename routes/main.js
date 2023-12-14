@@ -1,9 +1,17 @@
 const express = require('express')
 const router = express.Router()
-const { products, skills } = require('../data.json')
+const db = require('../db');
+
+
 
 router.get('/', (req, res, next) => {
-  res.render('pages/index', { title: 'Main page', products, skills })
+  db.get('skills').push({
+    "number": 98,
+    "text": "test"
+  }).write();
+  const products = db.get('products').value();
+  const skills = db.get('skills').value();
+  res.render('pages/index', { title: 'Main page', products, skills})
 })
 
 router.post('/', (req, res, next) => {
