@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const db = require('../db');
 
 router.get('/', (req, res, next) => {
   // TODO: Реализовать, подстановку в поля ввода формы 'Счетчики'
@@ -10,12 +11,13 @@ router.get('/', (req, res, next) => {
 router.post('/skills', (req, res, next) => {
   /*
   TODO: Реализовать сохранение нового объекта со значениями блока скиллов
-
     в переменной age - Возраст начала занятий на скрипке
     в переменной concerts - Концертов отыграл
     в переменной cities - Максимальное число городов в туре
     в переменной years - Лет на сцене в качестве скрипача
   */
+  const age = db.get('skills').value();
+
   res.send('Реализовать сохранение нового объекта со значениями блока скиллов')
 })
 
