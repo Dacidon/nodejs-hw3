@@ -3,21 +3,22 @@ const db = require('../db');
 const router = express.Router()
 
 router.get('/', (req, res, next) => {
-  res.render('pages/login', { title: 'SigIn page' })
+  res.render('pages/login', { title: 'SigIn page', msglogin: req.flash('loginmsg')[0] })
 })
 
 router.post('/', (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    res.redirect('/login?msglogin=Не все поля заполнены');
-  } else if (password !== db.get('admins').find({ adminEmail: email}).value().adminPass) {
-    res.redirect('/login?msglogin=Неверный логин или пароль');
+    req.flash('loginmsg', 'Не все поля заполнены');
+    res.redirect('/login');
+  } else if (!db.get('admins').find({ adminEmail: email}) || password !== db.get('admins').find({ adminEmail: email}).value().adminPass ) {
+    req.flash('loginmsg', 'Неверный логин или пароль');
+    res.redirect('/login');
   } else {
     res.redirect('/admin');
   }
-  console.log(password);
-  console.log(db.get('admins').find({ adminEmail: email}).value().adminPass);
+  console.log('Flash: ', req.flash('loginmsg'));
 })
 
 module.exports = router

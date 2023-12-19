@@ -1,19 +1,19 @@
 {
   "skills": [
     {
-      "number": "17",
+      "number": "123",
       "text": "Возраст начала занятий на скрипке"
     },
     {
-      "number": "31",
+      "number": "234",
       "text": "Концертов отыграл"
     },
     {
-      "number": "64",
+      "number": "356",
       "text": "Максимальное число городов в туре"
     },
     {
-      "number": "15",
+      "number": "74",
       "text": "Лет на сцене в качестве скрипача"
     }
   ],
@@ -65,7 +65,11 @@
     }
   ],
   "messages": [
-    
+    {
+      "userEmail": "dpfkwefij@gmail.com",
+      "userName": "eourgjewoifire",
+      "userMessage": "hlorjgerioutrhg"
+    }
   ],
   "admins": [
     {

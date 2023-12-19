@@ -7,7 +7,7 @@ const router = express.Router()
 
 
 router.get('/', (req, res, next) => {
-  res.render('pages/admin', { title: 'Admin page'})
+  res.render('pages/admin', { title: 'Admin page', msgfile: req.flash('filemsg')[0], msgskill: req.flash('skillmsg')[0]})
 })
 
 router.post('/skills', (req, res, next) => {
@@ -18,7 +18,8 @@ router.post('/skills', (req, res, next) => {
 
   db.write();
 
-  res.send('Значения изменены на: ' + JSON.stringify(req.body));
+  req.flash('skillmsg', 'Значения навыков успешно изменены');
+  res.redirect('/admin');
 })
 
 router.post('/upload', (req, res, next) => {
@@ -42,15 +43,11 @@ router.post('/upload', (req, res, next) => {
 
     if (valid.err) {
       fs.unlinkSync(files.photo.path);
-      return res.redirect(`/admin?msgfile=${valid.status}`);
+      req.flash('filemsg', `${valid.status}`);
+      return res.redirect('/admin');
     }
 
-    console.log(files.photo[0].originalFilename);
-
-
     const fileName = path.join(upload, files.photo[0].originalFilename);
-
-    
  
     fs.rename(files.photo[0].filepath, fileName, function (err) {
       if (err) {
@@ -63,7 +60,8 @@ router.post('/upload', (req, res, next) => {
         name: fields.name[0],
         price: fields.price[0]
       }).write();
-      res.redirect('/admin?msgfile=Товар успешно добавлен');
+      req.flash('filemsg', 'Товар успешно добавлен');
+      res.redirect('/admin');
     })
   });
 
